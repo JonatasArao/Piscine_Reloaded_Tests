@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 10:41:22 by jarao-de          #+#    #+#             */
-/*   Updated: 2024/10/04 11:10:51 by jarao-de         ###   ########.fr       */
+/*   Updated: 2024/10/04 14:56:49 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,20 +98,6 @@ MU_TEST(test_is_minus_ten_negative)
 	mu_assert_string_eq(expected_result, actual_result);
 }
 
-MU_TEST(test_is_max_int_negative)
-{
-	// ARRANGE
-	char	expected_result[1];
-	char	actual_result[256];
-
-	// ACT
-	strcpy(expected_result, "P");
-	capture_ft_is_negative_output(ft_is_negative, 2147483647, actual_result, sizeof(actual_result));
-
-	// ASSERT
-	mu_assert_string_eq(expected_result, actual_result);
-}
-
 MU_TEST(test_is_min_int_negative)
 {
 	// ARRANGE
@@ -126,13 +112,27 @@ MU_TEST(test_is_min_int_negative)
 	mu_assert_string_eq(expected_result, actual_result);
 }
 
+MU_TEST(test_is_max_int_negative)
+{
+	// ARRANGE
+	char	expected_result[1];
+	char	actual_result[256];
+
+	// ACT
+	strcpy(expected_result, "P");
+	capture_ft_is_negative_output(ft_is_negative, 2147483647, actual_result, sizeof(actual_result));
+
+	// ASSERT
+	mu_assert_string_eq(expected_result, actual_result);
+}
+
 MU_TEST_SUITE(ft_is_negative_test_suite)
 {
 	MU_RUN_TEST(test_is_ten_negative);
 	MU_RUN_TEST(test_is_zero_negative);
 	MU_RUN_TEST(test_is_minus_ten_negative);
-	MU_RUN_TEST(test_is_max_int_negative);
 	MU_RUN_TEST(test_is_min_int_negative);
+	MU_RUN_TEST(test_is_max_int_negative);
 }
 
 int	main(void) {
