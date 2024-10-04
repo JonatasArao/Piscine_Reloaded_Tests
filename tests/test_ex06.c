@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 10:41:22 by jarao-de          #+#    #+#             */
-/*   Updated: 2024/10/04 10:55:25 by jarao-de         ###   ########.fr       */
+/*   Updated: 2024/10/04 11:07:08 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,5 @@ MU_TEST_SUITE(ft_print_alphabet_test_suite)
 int	main(void) {
 	MU_RUN_SUITE(ft_print_alphabet_test_suite);
 	MU_REPORT();
-	main_original();
 	return MU_EXIT_CODE;
 }
