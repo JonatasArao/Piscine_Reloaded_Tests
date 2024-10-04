@@ -18,8 +18,11 @@ $(BINDIR)/%: $(OBJS) $(TEST_OBJS)
 	@mkdir -p $(BINDIR)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(filter $(TARGET)/$(notdir $@)/%.o, $(OBJS)) $(filter tests/test_$(notdir $@).o, $(TEST_OBJS)) -o $@
 
-%.o: %.c <br>
-	$(COMPILE.c) $(OUTPUT_OPTION) $<<br>
+$(TARGET)/%.o: $(TARGET)/%.c
+	$(COMPILE.c) -Dmain=program_main $(OUTPUT_OPTION) $<
+
+$(TESTDIR)/%.o: $(TESTDIR)/%.c
+	$(COMPILE.c) $(OUTPUT_OPTION) $<
 
 %: %.o <br>
 	$(LINK.o) $^ $(LOADLIBES) $(CFLAGS) $(LDFLAGS) $(LDLIBS) -o $@<br>
