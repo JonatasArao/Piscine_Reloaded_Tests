@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 10:41:22 by jarao-de          #+#    #+#             */
-/*   Updated: 2024/10/03 18:10:40 by jarao-de         ###   ########.fr       */
+/*   Updated: 2024/10/04 10:33:00 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-void capture_output(void (*func)(int), int arg, char* buffer, size_t size) {
+void capture_ft_is_negative_output(void (*func)(int), int n, char* buffer, size_t size) {
 	int pipefd[2];
 	ssize_t count;
 
@@ -40,7 +40,7 @@ void capture_output(void (*func)(int), int arg, char* buffer, size_t size) {
 	close(pipefd[1]);
 
 	// Chama a função cuja saída queremos capturar
-	func(arg);
+	func(n);
 
 	// Restaura a saída padrão
 	fflush(stdout);
@@ -64,7 +64,7 @@ MU_TEST(test_is_ten_negative)
 
 	// ACT
 	strcpy(expected_result, "P");
-	capture_output(ft_is_negative, 10,actual_result, sizeof(actual_result));
+	capture_ft_is_negative_output(ft_is_negative, 10, actual_result, sizeof(actual_result));
 
 	// ASSERT
 	mu_assert_string_eq(expected_result, actual_result);
@@ -78,7 +78,7 @@ MU_TEST(test_is_zero_negative)
 
 	// ACT
 	strcpy(expected_result, "P");
-	capture_output(ft_is_negative, 0, actual_result, sizeof(actual_result));
+	capture_ft_is_negative_output(ft_is_negative, 0, actual_result, sizeof(actual_result));
 
 	// ASSERT
 	mu_assert_string_eq(expected_result, actual_result);
@@ -92,7 +92,7 @@ MU_TEST(test_is_minus_ten_negative)
 
 	// ACT
 	strcpy(expected_result, "N");
-	capture_output(ft_is_negative, -10, actual_result, sizeof(actual_result));
+	capture_ft_is_negative_output(ft_is_negative, -10, actual_result, sizeof(actual_result));
 
 	// ASSERT
 	mu_assert_string_eq(expected_result, actual_result);

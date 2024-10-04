@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 10:41:22 by jarao-de          #+#    #+#             */
-/*   Updated: 2024/10/03 15:15:24 by jarao-de         ###   ########.fr       */
+/*   Updated: 2024/10/04 10:32:41 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-void capture_output(void (*func)(void), char* buffer, size_t size) {
+void capture_ft_print_numbers_output(void (*func)(void), char* buffer, size_t size) {
 	int pipefd[2];
 	ssize_t count;
 
@@ -64,7 +64,7 @@ MU_TEST(test_print_alphabet_response)
 
 	// ACT
 	strcpy(expected_result, "0123456789");
-	capture_output(ft_print_numbers, actual_result, sizeof(actual_result));
+	capture_ft_print_numbers_output(ft_print_numbers, actual_result, sizeof(actual_result));
 
 	// ASSERT
 	mu_assert_string_eq(expected_result, actual_result);
