@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 14:37:12 by jarao-de          #+#    #+#             */
-/*   Updated: 2024/10/04 15:02:12 by jarao-de         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:30:56 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ MU_TEST(test_ft_iterative_zero_factorial)
 
 	// ACT
 	expected_result = 1;
-	actual_result = ft_iterative_factorial(1);
+	actual_result = ft_iterative_factorial(0);
 
 	// ASSERT
 	mu_assert_int_eq(expected_result, actual_result);
@@ -36,7 +36,7 @@ MU_TEST(test_ft_iterative_one_factorial)
 
 	// ACT
 	expected_result = 1;
-	actual_result = ft_iterative_factorial(0);
+	actual_result = ft_iterative_factorial(1);
 
 	// ASSERT
 	mu_assert_int_eq(expected_result, actual_result);
