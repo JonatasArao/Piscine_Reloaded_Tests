@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 11:15:38 by jarao-de          #+#    #+#             */
-/*   Updated: 2024/10/04 11:30:33 by jarao-de         ###   ########.fr       */
+/*   Updated: 2024/10/04 14:38:36 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_ft(int *nbr);
 
-MU_TEST(test_ft_ft_42)
+MU_TEST(test_ft_ft_forty_two)
 {
 	// ARRANGE
 	int	expected_result;
@@ -30,7 +30,7 @@ MU_TEST(test_ft_ft_42)
 
 MU_TEST_SUITE(ft_ft_test_suite)
 {
-	MU_RUN_TEST(test_ft_ft_42);
+	MU_RUN_TEST(test_ft_ft_forty_two);
 }
 
 int	main(void) {
