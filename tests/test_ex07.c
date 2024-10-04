@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 10:41:22 by jarao-de          #+#    #+#             */
-/*   Updated: 2024/10/04 10:32:41 by jarao-de         ###   ########.fr       */
+/*   Updated: 2024/10/04 11:21:30 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void capture_ft_print_numbers_output(void (*func)(void), char* buffer, size_t si
 	buffer[count] = '\0';
 }
 
-MU_TEST(test_print_alphabet_response)
+MU_TEST(test_print_numbers_response)
 {
 	// ARRANGE
 	char	expected_result[26];
@@ -72,7 +72,7 @@ MU_TEST(test_print_alphabet_response)
 
 MU_TEST_SUITE(ft_print_numbers_test_suite)
 {
-	MU_RUN_TEST(test_print_alphabet_response);
+	MU_RUN_TEST(test_print_numbers_response);
 }
 
 int	main(void) {
