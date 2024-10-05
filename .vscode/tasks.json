@@ -4,7 +4,7 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "make EX=$(echo ${fileDirname} | awk -F '/' '{print ($NF)}')",
+            "command": "if [ \"$(basename ${fileDirname})\" == \"tests\" ]; then make debug EX=$(echo ${fileBasenameNoExtension} | sed 's/^test_//'); else make debug EX=$(basename ${fileDirname}); fi",
             "group": "build",
             "problemMatcher": "$gcc"
         },

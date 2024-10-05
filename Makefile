@@ -1,5 +1,5 @@
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g
+CFLAGS		= -Wall -Wextra -Werror
 LDFLAGS		= -lrt -lm
 RM			= rm -rf
 TARGET		= exercises
@@ -10,13 +10,25 @@ SRCS		= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
 TESTS		= $(foreach ex, $(EX), $(wildcard $(TESTDIR)/test_$(ex).c))
 OBJS		= $(SRCS:.c=.o)
 TEST_OBJS	= $(TESTS:.c=.o)
-BINDIR		= ./tests_build/$(TARGET)
+BINDIR		= tests_build
 
-all: $(addprefix $(BINDIR)/, $(EX)) clean
+all: $(addprefix $(BINDIR)/$(TARGET)/, $(EX)) clean
 
-$(BINDIR)/%: $(OBJS) $(TEST_OBJS)
+debug: $(if $(filter 1,$(words $(EX))),debug-single,debug-multiple) clean
+
+debug-single: $(OBJS) $(TEST_OBJS)
 	@mkdir -p $(BINDIR)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(filter $(TARGET)/$(notdir $@)/%.o, $(OBJS)) $(filter tests/test_$(notdir $@).o, $(TEST_OBJS)) -o $@
+	$(CC) $(CFLAGS) -g $(LDFLAGS) $(OBJS) $(TEST_OBJS) -o $(BINDIR)/test_debug
+
+debug-multiple: $(addprefix debug_, $(EX))
+
+debug_%: $(OBJS) $(TEST_OBJS)
+	@mkdir -p $(BINDIR)/debug
+	$(CC) $(CFLAGS) -g $(LDFLAGS) $(filter $(TARGET)/$*/%.o, $(OBJS)) $(filter tests/test_$*.o, $(TEST_OBJS)) -o $(BINDIR)/debug/test_debug_$*
+
+$(BINDIR)/$(TARGET)/%: $(OBJS) $(TEST_OBJS)
+	@mkdir -p $(BINDIR)/$(TARGET)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(filter $(TARGET)/$*/%.o, $(OBJS)) $(filter tests/test_$*.o, $(TEST_OBJS)) -o $@
 
 $(TARGET)/%.o: $(TARGET)/%.c
 	$(COMPILE.c) -Dmain=program_main $(OUTPUT_OPTION) $<
@@ -31,7 +43,7 @@ clean:
 	$(RM) $(OBJS) $(TEST_OBJS)
 
 fclean: clean
-	$(RM) $(addprefix $(BINDIR)/, $(EX))
+	$(RM) $(addprefix $(BINDIR)/$(TARGET), $(EX))
 
 re: fclean
 	$(MAKE) all
