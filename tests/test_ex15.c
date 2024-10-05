@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 17:22:24 by jarao-de          #+#    #+#             */
-/*   Updated: 2024/10/04 19:07:57 by jarao-de         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:14:53 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void capture_ft_putstr_output(void (*func)(char *), char *str, char* buffer, siz
 	buffer[count] = '\0';
 }
 
-MU_TEST(test_putstr_undercase_alphabet)
+MU_TEST(test_ft_putstr_undercase_alphabet)
 {
 	// ARRANGE
 	char	expected_result[26];
@@ -70,7 +70,7 @@ MU_TEST(test_putstr_undercase_alphabet)
 	mu_assert_string_eq(expected_result, actual_result);
 }
 
-MU_TEST(test_putstr_uppercase_alphabet)
+MU_TEST(test_ft_putstr_uppercase_alphabet)
 {
 	// ARRANGE
 	char	expected_result[26];
@@ -84,7 +84,7 @@ MU_TEST(test_putstr_uppercase_alphabet)
 	mu_assert_string_eq(expected_result, actual_result);
 }
 
-MU_TEST(test_putstr_numbers)
+MU_TEST(test_ft_putstr_numbers)
 {
 	// ARRANGE
 	char	expected_result[10];
@@ -98,7 +98,7 @@ MU_TEST(test_putstr_numbers)
 	mu_assert_string_eq(expected_result, actual_result);
 }
 
-MU_TEST(test_putstr_special)
+MU_TEST(test_ft_putstr_special)
 {
 	// ARRANGE
 	char	expected_result[34];
@@ -112,7 +112,7 @@ MU_TEST(test_putstr_special)
 	mu_assert_string_eq(expected_result, actual_result);
 }
 
-MU_TEST(test_putstr_unprintable)
+MU_TEST(test_ft_putstr_unprintable)
 {
 	// ARRANGE
 	char	expected_result[8];
@@ -128,11 +128,11 @@ MU_TEST(test_putstr_unprintable)
 
 MU_TEST_SUITE(ft_putstr_test_suite)
 {
-	MU_RUN_TEST(test_putstr_undercase_alphabet);
-	MU_RUN_TEST(test_putstr_uppercase_alphabet);
-	MU_RUN_TEST(test_putstr_numbers);
-	MU_RUN_TEST(test_putstr_special);
-	MU_RUN_TEST(test_putstr_unprintable);
+	MU_RUN_TEST(test_ft_putstr_undercase_alphabet);
+	MU_RUN_TEST(test_ft_putstr_uppercase_alphabet);
+	MU_RUN_TEST(test_ft_putstr_numbers);
+	MU_RUN_TEST(test_ft_putstr_special);
+	MU_RUN_TEST(test_ft_putstr_unprintable);
 }
 
 int	main(void) {
