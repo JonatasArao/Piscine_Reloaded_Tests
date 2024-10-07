@@ -3,7 +3,7 @@ CFLAGS		= -Wall -Wextra -Werror
 LDFLAGS		= -lrt -lm
 RM			= rm -rf
 TARGET		= exercises
-EX			= ex06 ex07 ex08 ex09 ex10 ex11 ex12 ex13 ex14 ex15 ex16 ex17 ex18 ex19 ex20 ex21 ex22 ex23
+EX			= ex06 ex07 ex08 ex09 ex10 ex11 ex12 ex13 ex14 ex15 ex16 ex17 ex18 ex19 ex20 ex21 ex22 ex23 ex25
 SRCDIR		= $(addprefix $(TARGET)/, $(EX))
 TESTDIR		= tests
 SRCS		= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
@@ -11,6 +11,8 @@ TESTS		= $(foreach ex, $(EX), $(wildcard $(TESTDIR)/test_$(ex).c))
 OBJS		= $(SRCS:.c=.o)
 TEST_OBJS	= $(TESTS:.c=.o)
 BINDIR		= tests_build
+
+.PHONY: all clean debug debug-single debug-multiple
 
 all: $(addprefix $(BINDIR)/$(TARGET)/, $(EX)) clean
 
