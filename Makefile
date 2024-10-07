@@ -3,7 +3,7 @@ CFLAGS		= -Wall -Wextra -Werror
 LDFLAGS		= -lrt -lm
 RM			= rm -rf
 TARGET		= exercises
-EX			= ex06 ex07 ex08 ex09 ex10 ex11 ex12 ex13 ex14 ex15 ex16 ex17 ex18 ex19
+EX			= ex06 ex07 ex08 ex09 ex10 ex11 ex12 ex13 ex14 ex15 ex16 ex17 ex18 ex19 ex20 ex21 ex22
 SRCDIR		= $(addprefix $(TARGET)/, $(EX))
 TESTDIR		= tests
 SRCS		= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
@@ -32,10 +32,10 @@ $(BINDIR)/$(TARGET)/%: $(OBJS) $(TEST_OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(filter $(TARGET)/$*/%.o, $(OBJS)) $(filter tests/test_$*.o, $(TEST_OBJS)) -o $@
 
 $(TARGET)/%.o: $(TARGET)/%.c
-	$(COMPILE.c) -Dmain=program_main $(OUTPUT_OPTION) $<
+	$(COMPILE.c) $(addprefix -I, $(patsubst %/,%,$(basename $(dir $^)))) -Dmain=program_main $(OUTPUT_OPTION) $<
 
 $(TESTDIR)/%.o: $(TESTDIR)/%.c
-	$(COMPILE.c) $(OUTPUT_OPTION) $<
+	$(COMPILE.c) $(addprefix -I, $(TARGET)/$(basename $(patsubst tests/test_%, %, $^))) $(OUTPUT_OPTION) $<
 
 %: %.o <br>
 	$(LINK.o) $^ $(LOADLIBES) $(CFLAGS) $(LDFLAGS) $(LDLIBS) -o $@<br>
