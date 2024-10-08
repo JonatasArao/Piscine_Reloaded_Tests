@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 20:00:29 by jarao-de          #+#    #+#             */
-/*   Updated: 2024/10/08 15:49:11 by jarao-de         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:13:18 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,25 @@ void capture_ft_display_file_output(int (*func)(int, char**), int argc, char **a
 		exit(EXIT_FAILURE);
 	}
 
-	// Salva o descritor de arquivo original da saída padrão
+	// Salva os descritores de arquivo originais da saída padrão e erro padrão
 	int stdout_backup = dup(STDOUT_FILENO);
+	int stderr_backup = dup(STDERR_FILENO);
 
-	// Redireciona a saída padrão para o pipe
+	// Redireciona a saída padrão e erro padrão para o pipe
 	dup2(pipefd[1], STDOUT_FILENO);
+	dup2(pipefd[1], STDERR_FILENO);
 	close(pipefd[1]);
 
 	// Chama a função cuja saída queremos capturar
 	func(argc, argv);
 
-	// Restaura a saída padrão
+	// Restaura a saída padrão e erro padrão
 	fflush(stdout);
+	fflush(stderr);
 	dup2(stdout_backup, STDOUT_FILENO);
+	dup2(stderr_backup, STDERR_FILENO);
 	close(stdout_backup);
+	close(stderr_backup);
 
 	// Lê o conteúdo do pipe
 	count = read(pipefd[0], buffer, size - 1);
@@ -50,8 +55,8 @@ void capture_ft_display_file_output(int (*func)(int, char**), int argc, char **a
 	}
 	buffer[count] = '\0';
 
-    // Fecha o descritor de leitura do pipe
-    close(pipefd[0]);
+	// Fecha o descritor de leitura do pipe
+	close(pipefd[0]);
 }
 
 MU_TEST(test_ft_display_file_empty_params)
