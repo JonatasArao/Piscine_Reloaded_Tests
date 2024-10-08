@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 20:00:29 by jarao-de          #+#    #+#             */
-/*   Updated: 2024/10/08 16:13:18 by jarao-de         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:30:51 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,28 @@ void capture_ft_display_file_output(int (*func)(int, char**), int argc, char **a
 	int pipefd[2];
 	ssize_t count;
 
-	// Cria um pipe
+	// Create a pipe
 	if (pipe(pipefd) == -1) {
 		perror("pipe");
 		exit(EXIT_FAILURE);
 	}
 
-	// Salva os descritores de arquivo originais da saída padrão e erro padrão
+	// Save the original file descriptors for stdout
 	int stdout_backup = dup(STDOUT_FILENO);
-	int stderr_backup = dup(STDERR_FILENO);
 
-	// Redireciona a saída padrão e erro padrão para o pipe
+	// Redirect stdout to the pipe
 	dup2(pipefd[1], STDOUT_FILENO);
-	dup2(pipefd[1], STDERR_FILENO);
 	close(pipefd[1]);
 
-	// Chama a função cuja saída queremos capturar
+	// Call the function whose output we want to capture
 	func(argc, argv);
 
-	// Restaura a saída padrão e erro padrão
+	// Restore stdout
 	fflush(stdout);
-	fflush(stderr);
 	dup2(stdout_backup, STDOUT_FILENO);
-	dup2(stderr_backup, STDERR_FILENO);
 	close(stdout_backup);
-	close(stderr_backup);
 
-	// Lê o conteúdo do pipe
+	// Read the content from the pipe
 	count = read(pipefd[0], buffer, size - 1);
 	if (count == -1) {
 		perror("read");
@@ -55,7 +50,44 @@ void capture_ft_display_file_output(int (*func)(int, char**), int argc, char **a
 	}
 	buffer[count] = '\0';
 
-	// Fecha o descritor de leitura do pipe
+	// Close the read descriptor of the pipe
+	close(pipefd[0]);
+}
+
+void capture_ft_display_file_error_output(int (*func)(int, char**), int argc, char **argv, char* buffer, size_t size) {
+	int pipefd[2];
+	ssize_t count;
+
+	// Create a pipe
+	if (pipe(pipefd) == -1) {
+		perror("pipe");
+		exit(EXIT_FAILURE);
+	}
+
+	// Save the original file descriptors for stderr
+	int stderr_backup = dup(STDERR_FILENO);
+
+	// Redirect stderr to the pipe
+	dup2(pipefd[1], STDERR_FILENO);
+	close(pipefd[1]);
+
+	// Call the function whose error output we want to capture
+	func(argc, argv);
+
+	// Restore stderr
+	fflush(stderr);
+	dup2(stderr_backup, STDERR_FILENO);
+	close(stderr_backup);
+
+	// Read the content from the pipe
+	count = read(pipefd[0], buffer, size - 1);
+	if (count == -1) {
+		perror("read");
+		exit(EXIT_FAILURE);
+	}
+	buffer[count] = '\0';
+
+	// Close the read descriptor of the pipe
 	close(pipefd[0]);
 }
 
@@ -71,7 +103,7 @@ MU_TEST(test_ft_display_file_empty_params)
 	argc = 1;
 	argv = (char *[]){"./a.out"};
 	strcpy(expected_result, "File name missing.\n");
-	capture_ft_display_file_output(program_main, argc, argv, actual_result, sizeof(actual_result));
+	capture_ft_display_file_error_output(program_main, argc, argv, actual_result, sizeof(actual_result));
 
 	// ASSERT
 	mu_assert_string_eq(expected_result, actual_result);
@@ -89,7 +121,7 @@ MU_TEST(test_ft_display_file_more_than_one_params)
 	argc = 3;
 	argv = (char *[]){"./a.out", "test1", "test2"};
 	strcpy(expected_result, "Too many arguments.\n");
-	capture_ft_display_file_output(program_main, argc, argv, actual_result, sizeof(actual_result));
+	capture_ft_display_file_error_output(program_main, argc, argv, actual_result, sizeof(actual_result));
 
 	// ASSERT
 	mu_assert_string_eq(expected_result, actual_result);
