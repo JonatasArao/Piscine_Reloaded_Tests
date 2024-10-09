@@ -1,21 +1,23 @@
-# Piscine Reloaded - Warm Up
+# Piscine Reloaded - Testes - Warm Up
 
-Este repositório contém exercícios da Piscine Reloaded da 42. Abaixo você encontrará instruções detalhadas sobre como configurar, compilar e executar os testes para os exercícios.
+Este repositório contém testes dos exercícios da Piscine Reloaded da 42. Abaixo você encontrará instruções detalhadas sobre como configurar, compilar e executar os testes para os exercícios.
 
 ## Estrutura do Projeto
 
 ```
 /
-├── exercises/
-│   └── [diretórios dos exercícios]
+├── .vscode/
+│   ├── launch.json
+│   └── tasks.json
+├── [diretório dos exercícios]/
+│   └── [subdiretórios dos exercícios]
 ├── tests/
+│   ├── minunit.h
 │   └── [arquivos de teste para cada exercício]
 ├── tests_build/
 │   └── [binários compilados]
-├── Makefile
-├── minunit.h
-├── tasks.json
-└── launch.json
+├── .gitignore
+└── Makefile
 ```
 
 ## Pré-requisitos
@@ -66,7 +68,7 @@ make EX=ex10
 
 ### TARGET
 
-A variável `TARGET` é usada para especificar o diretório alvo dos exercícios. Por exemplo:
+A variável `TARGET` é usada para especificar o diretório alvo dos exercícios. A pasta pode ter qualquer nome. Por exemplo:
 
 ```sh
 make TARGET=exercises
@@ -102,6 +104,17 @@ Para executar os testes, navegue até o diretório `tests_build` e execute o bin
 cd tests_build
 ./test_debug
 ```
+
+### Execução de Testes Múltiplos
+
+Se você compilou vários testes usando `make debug`, os binários de depuração estarão no diretório `tests_build/debug`. Para executar um teste específico, navegue até o diretório e execute o binário correspondente:
+
+```sh
+cd tests_build/debug
+./test_debug_exXX
+```
+
+Substitua `exXX` pelo número do exercício que você deseja testar.
 
 ## Modelo para Criação de Novos Testes
 
