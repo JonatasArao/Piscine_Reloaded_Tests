@@ -59,7 +59,7 @@ void capture_ft_sort_params_output(int (*func)(int, char**), int argc, char **ar
 MU_TEST(test_ft_sort_params_empty_params)
 {
 	// ARRANGE
-	char	expected_result[18];
+	char	expected_result[1];
 	char	actual_result[256];
 	int		argc;
 	char	**argv;
@@ -202,7 +202,7 @@ MU_TEST(test_ft_sort_params_uppercase_undercase_params)
 MU_TEST(test_ft_sort_params_mixed_case_params)
 {
 	// ARRANGE
-	char	expected_result[19];
+	char	expected_result[16];
 	char	actual_result[256];
 	int		argc;
 	char	**argv;
@@ -220,7 +220,7 @@ MU_TEST(test_ft_sort_params_mixed_case_params)
 MU_TEST(test_ft_sort_params_numeric_params)
 {
 	// ARRANGE
-	char	expected_result[13];
+	char	expected_result[8];
 	char	actual_result[256];
 	int		argc;
 	char	**argv;
@@ -256,7 +256,7 @@ MU_TEST(test_ft_sort_params_special_characters)
 MU_TEST(test_ft_sort_params_mixed_alphanumeric)
 {
 	// ARRANGE
-	char	expected_result[19];
+	char	expected_result[20];
 	char	actual_result[256];
 	int		argc;
 	char	**argv;
@@ -274,7 +274,7 @@ MU_TEST(test_ft_sort_params_mixed_alphanumeric)
 MU_TEST(test_ft_sort_params_long_strings)
 {
 	// ARRANGE
-	char	expected_result[37];
+	char	expected_result[41];
 	char	actual_result[256];
 	int		argc;
 	char	**argv;
@@ -292,7 +292,7 @@ MU_TEST(test_ft_sort_params_long_strings)
 MU_TEST(test_ft_sort_params_empty_string)
 {
 	// ARRANGE
-	char	expected_result[37];
+	char	expected_result[11];
 	char	actual_result[256];
 	int		argc;
 	char	**argv;
@@ -310,7 +310,7 @@ MU_TEST(test_ft_sort_params_empty_string)
 MU_TEST(test_ft_sort_params_duplicate_strings)
 {
 	// ARRANGE
-	char	expected_result[37];
+	char	expected_result[21];
 	char	actual_result[256];
 	int		argc;
 	char	**argv;
@@ -328,7 +328,7 @@ MU_TEST(test_ft_sort_params_duplicate_strings)
 MU_TEST(test_ft_sort_params_varied_lengths)
 {
 	// ARRANGE
-	char	expected_result[37];
+	char	expected_result[27];
 	char	actual_result[256];
 	int		argc;
 	char	**argv;
